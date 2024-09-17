@@ -56,6 +56,9 @@ Task createTask(const rclcpp::Node::SharedPtr& node) {
 
 	// create Cartesian interpolation "planner" to be used in various stages
 	auto cartesian_interpolation = std::make_shared<solvers::CartesianPath>();
+	cartesian_planner->setMaxVelocityScalingFactor(0.1);
+	cartesian_planner->setMaxAccelerationScalingFactor(1.0);
+	cartesian_planner->setStepSize(.01);
 	// create a joint-space interpolation "planner" to be used in various stages
 	auto joint_interpolation = std::make_shared<solvers::JointInterpolationPlanner>();
 
@@ -73,14 +76,14 @@ Task createTask(const rclcpp::Node::SharedPtr& node) {
     // // t.add(std::move(stage_state_current));
 	}
 
-  // TESTING
+	// TESTING
 
-  // start from a fixed robot state
-  Stage* current_state_ptr = nullptr;  // Forward current_state on to grasp pose generator
-  auto stage_state_current = std::make_unique<stages::CurrentState>("current");
-  current_state_ptr = stage_state_current.get();
-  t.add(std::move(stage_state_current));
-  // END TESTING
+	// start from a fixed robot state
+	Stage* current_state_ptr = nullptr;  // Forward current_state on to grasp pose generator
+	auto stage_state_current = std::make_unique<stages::CurrentState>("current");
+	current_state_ptr = stage_state_current.get();
+	t.add(std::move(stage_state_current));
+	// END TESTING
 
 	{
 		auto stage = std::make_unique<stages::MoveRelative>("x +0.2", cartesian_interpolation);
@@ -112,31 +115,6 @@ Task createTask(const rclcpp::Node::SharedPtr& node) {
 		t.add(std::move(stage));
 	}
 
-	// {  // perform a Cartesian motion, defined as a relative offset in joint space
-	// 	auto stage = std::make_unique<stages::MoveRelative>("joint offset", cartesian_interpolation);
-	// 	stage->setGroup(group);
-	// 	std::map<std::string, double> offsets = { { "joint_1", M_PI / 6. }, { "joint_3", -M_PI / 6 } };
-	// 	stage->setDirection(offsets);
-	// 	t.add(std::move(stage));
-	// }
-
-  // auto stage_open_hand = std::make_unique<stages::MoveTo>("open hand", joint_interpolation);
-  // stage_open_hand->setGroup(eef);
-  // stage_open_hand->setGoal("Open");
-  // t.add(std::move(stage_open_hand));
-
-	// {  // move from reached state back to the original state, using joint interpolation
-	// 	stages::Connect::GroupPlannerVector planners = { { group, joint_interpolation } };
-	// 	auto connect = std::make_unique<stages::Connect>("connect", planners);
-	// 	t.add(std::move(connect));
-	// }
-
-	// {  // final state is original state again
-	// 	auto fixed = std::make_unique<stages::FixedState>("final state");
-	// 	fixed->setState(scene);
-	// 	t.add(std::move(fixed));
-	// }
-
 	return t;
 }
 
@@ -152,6 +130,11 @@ int main(int argc, char** argv) {
 	} catch (const InitStageException& ex) {
 		std::cerr << "planning failed with exception" << std::endl << ex << task;
 	}
+
+	// auto error_code = task.plan();
+	// std::cout << "Error code: " << error_code << std::endl;
+
+	auto result = task.execute(*task.solutions().front());
 
 	// keep alive for interactive inspection in rviz
 	spinning_thread.join();

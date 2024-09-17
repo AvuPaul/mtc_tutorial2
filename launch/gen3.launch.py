@@ -50,12 +50,14 @@ def launch_setup(context, *args, **kwargs):
     use_internal_bus_gripper_comm = LaunchConfiguration("use_internal_bus_gripper_comm")
 
     launch_arguments = {
-        "robot_ip": "192.168.100.20",
-        "use_fake_hardware": "false",
+        # "robot_ip": "192.168.100.20",
+        "robot_ip": "yyy.yyy.yyy.yyy",
+        # "use_fake_hardware": "false",
+        "use_fake_hardware": "true",
         "gripper": "robotiq_2f_85",
         "gripper_joint_name": "robotiq_85_left_knuckle_joint",
         "dof": "7",
-        "gripper_max_velocity": "100.0",
+        "gripper_max_velocity": "20.0",
         "gripper_max_force": "100.0",
         "use_internal_bus_gripper_comm": "true",
     }
@@ -197,7 +199,6 @@ def launch_setup(context, *args, **kwargs):
         fault_controller_spawner,
         move_group_node,
         static_tf,
-        # rviz_node,
     ]
 
     return nodes_to_start
