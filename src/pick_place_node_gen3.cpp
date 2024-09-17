@@ -61,19 +61,14 @@ Task createTask(const rclcpp::Node::SharedPtr& node) {
 	cartesian_interpolation->setStepSize(.01);
 	// create a joint-space interpolation "planner" to be used in various stages
 	auto joint_interpolation = std::make_shared<solvers::JointInterpolationPlanner>();
+	joint_interpolation->setMaxVelocityScalingFactor(0.1);
+	joint_interpolation->setMaxAccelerationScalingFactor(0.1);
 
 	t.loadRobotModel(node);
 	auto scene = std::make_shared<planning_scene::PlanningScene>(t.getRobotModel());
 	{
 		auto& state = scene->getCurrentStateNonConst();
 		state.setToDefaultValues(state.getJointModelGroup(group), "ready");
-
-		// auto fixed = std::make_unique<stages::FixedState>("Home");
-    // // auto stage_state_current = std::make_unique<mtc::stages::CurrentState>("current");
-    // // current_state_ptr = stage_state_current.get();
-		// fixed->setState(scene);
-		// t.add(std::move(fixed));
-    // // t.add(std::move(stage_state_current));
 	}
 
 	// TESTING
@@ -112,6 +107,14 @@ Task createTask(const rclcpp::Node::SharedPtr& node) {
 		twist.header.frame_id = "world";
 		twist.twist.angular.z = M_PI / 4.;
 		stage->setDirection(twist);
+		t.add(std::move(stage));
+	}
+
+	{ // move to home position
+		auto stage = std::make_unique<stages::MoveTo>("move to home", joint_interpolation);
+		stage->setGroup(group);
+		stage->setGoal("Home");
+		stage->setTimeout(5.0);
 		t.add(std::move(stage));
 	}
 

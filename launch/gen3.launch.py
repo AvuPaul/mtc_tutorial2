@@ -60,6 +60,7 @@ def launch_setup(context, *args, **kwargs):
         "gripper_max_velocity": "20.0",
         "gripper_max_force": "100.0",
         "use_internal_bus_gripper_comm": "true",
+        "vision": "true",
     }
 
     moveit_config = (

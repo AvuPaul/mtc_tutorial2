@@ -28,6 +28,17 @@ target_include_directories(cartesian_node PUBLIC
   $<INSTALL_INTERFACE:include>)
 target_compile_features(cartesian_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
+# add_executable(pick_place_node_gen3 src/pick_place_node_gen3.cpp)
+# target_include_directories(pick_place_node_gen3 PUBLIC
+#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#   $<INSTALL_INTERFACE:include>)
+# target_compile_features(pick_place_node_gen3 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+
+add_executable(pick_place_node_gen3 src/pick_place_node_gen3.cpp)
+ament_target_dependencies(pick_place_node_gen3 rclcpp std_msgs moveit_task_constructor_core)  # Add other dependencies as needed
+install(TARGETS pick_place_node_gen3
+  DESTINATION lib/${PROJECT_NAME})
+
 ament_target_dependencies(
   mtc_node
   "moveit_task_constructor_core"
@@ -45,6 +56,12 @@ ament_target_dependencies(
   "moveit_task_constructor_core"
   "rclcpp"
 )
+
+# ament_target_dependencies(
+#   pick_place_node_gen3
+#   "moveit_task_constructor_core"
+#   "rclcpp"
+# )
 
 install(TARGETS mtc_node mtc_node_gen3 cartesian_node
   DESTINATION lib/${PROJECT_NAME})
