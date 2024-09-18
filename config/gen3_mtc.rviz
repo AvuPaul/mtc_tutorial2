@@ -9,11 +9,12 @@ Panels:
         - /PlanningScene1
         - /PlanningScene1/Scene Geometry1
         - /PlanningScene1/Scene Robot1
+        - /TF1
         - /TF1/Frames1
-        - /MotionPlanning1
+        - /TF1/Frames1/base_link1
         - /MotionPlanning1/Planning Request1
       Splitter Ratio: 0.5497075915336609
-    Tree Height: 772
+    Tree Height: 432
   - Class: rviz_common/Help
     Name: Help
   - Class: rviz_common/Views
@@ -30,20 +31,20 @@ Panels:
     Name: Motion Planning Tasks
     Tasks View:
       property_splitter:
-        - 423
-        - 299
+        - 236
+        - 167
       solution_sorting:
         column: 0
         order: 1
       solutions_splitter:
-        - 504
-        - 254
+        - 506
+        - 255
       solutions_view_columns: ~
       tasks_view_columns:
-        - 327
-        - 53
-        - 53
-        - 69
+        - 417
+        - 26
+        - 26
+        - 35
 Visualization Manager:
   Class: ""
   Displays:
@@ -91,6 +92,18 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          camera_color_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          camera_depth_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          camera_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           end_effector_link:
             Alpha: 1
             Show Axes: false
@@ -225,6 +238,18 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          camera_color_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          camera_depth_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          camera_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           end_effector_link:
             Alpha: 1
             Show Axes: false
@@ -321,8 +346,14 @@ Visualization Manager:
           Value: false
         bracelet_link:
           Value: false
+        camera_color_frame:
+          Value: false
+        camera_depth_frame:
+          Value: false
+        camera_link:
+          Value: false
         end_effector_link:
-          Value: true
+          Value: false
         forearm_link:
           Value: false
         half_arm_1_link:
@@ -371,6 +402,12 @@ Visualization Manager:
                       spherical_wrist_2_link:
                         bracelet_link:
                           end_effector_link:
+                            camera_color_frame:
+                              {}
+                            camera_depth_frame:
+                              {}
+                            camera_link:
+                              {}
                             robotiq_85_base_link:
                               robotiq_85_left_inner_knuckle_link:
                                 {}
@@ -501,15 +538,15 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5
+      Pitch: 0.1400003284215927
       Target Frame: world
       Value: Orbit (rviz_default_plugins)
-      Yaw: 5.66018533706665
+      Yaw: 5.105172157287598
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1846
+  Height: 1043
   Help:
     collapsed: false
   Hide Left Dock: false
@@ -522,9 +559,9 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000002fe000006a4fc0200000008fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000007000fffffffb000000100044006900730070006c0061007900730100000069000003680000017800fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006700000001d5000002230000028e00fffffffb0000000800480065006c0070000000029a0000006e000000cf00fffffffb000000120020002d00200053006c00690064006500720000000000ffffffff0000000000000000fb0000003c004d006f00740069006f006e00200050006c0061006e006e0069006e00670020005400610073006b00730020002d00200053006c00690064006500720000000000ffffffff0000007000fffffffb000000280020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000002a004d006f00740069006f006e00200050006c0061006e006e0069006e00670020005400610073006b007301000003dd00000330000001ac00ffffff00000001000001c9000006a4fc0200000001fb0000000a005600690065007700730100000069000006a40000012300ffffff00000721000006a400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000200000000000002fd000003bdfc0200000008fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000003f00fffffffb000000100044006900730070006c006100790073010000003b000001eb000000c700fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006700000001d5000002230000016900fffffffb0000000800480065006c0070000000029a0000006e0000006e00fffffffb000000120020002d00200053006c00690064006500720000000000ffffffff0000000000000000fb0000003c004d006f00740069006f006e00200050006c0061006e006e0069006e00670020005400610073006b00730020002d00200053006c00690064006500720000000000ffffffff0000003f00fffffffb000000280020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000002a004d006f00740069006f006e00200050006c0061006e006e0069006e00670020005400610073006b0073010000022c000001cc000000e300ffffff00000001000001c9000003bdfc0200000001fb0000000a00560069006500770073010000003b000003bd000000a000ffffff000002ae000003bd00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 3072
-  X: 5120
-  Y: 960
+  Width: 1920
+  X: 1920
+  Y: 0

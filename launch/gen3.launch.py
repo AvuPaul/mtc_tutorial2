@@ -50,10 +50,15 @@ def launch_setup(context, *args, **kwargs):
     use_internal_bus_gripper_comm = LaunchConfiguration("use_internal_bus_gripper_comm")
 
     launch_arguments = {
+        # Real robot
         # "robot_ip": "192.168.100.20",
-        "robot_ip": "yyy.yyy.yyy.yyy",
         # "use_fake_hardware": "false",
-        "use_fake_hardware": "true",
+        # Fake robot
+        # "robot_ip": "yyy.yyy.yyy.yyy",
+        # "use_fake_hardware": "true",
+        # Launch CLI defined arguments
+        "robot_ip": robot_ip,
+        "use_fake_hardware": use_fake_hardware,
         "gripper": "robotiq_2f_85",
         "gripper_joint_name": "robotiq_85_left_knuckle_joint",
         "dof": "7",
@@ -112,6 +117,7 @@ def launch_setup(context, *args, **kwargs):
     )
 
     # Static TF
+    # Doesn't seem to impact the TF between world and base_link in RVIZ
     static_tf = Node(
         package="tf2_ros",
         executable="static_transform_publisher",
